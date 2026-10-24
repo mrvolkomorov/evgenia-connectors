@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Подключение сервисов своими руками</title>
+<style>
+:root{--ink:#1a2330;--muted:#5b6673;--line:#dfe4ea;--bg:#f7f8fa;--card:#fff;--accent:#1a4d8f;--accent2:#0f7b6c;--warn:#b8860b;--warnbg:#fff8e6;--free:#0f7b6c;--freebg:#e6f5f2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+header{background:#0b3d6b;background:linear-gradient(135deg,#0b3d6b,#1a4d8f);color:#fff;padding:32px 24px}
+header .wrap{max-width:1080px;margin:0 auto}
+header .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600}
+header h1{font-size:29px;line-height:1.25;margin:14px 0 10px;font-weight:700}
+header p{font-size:16px;opacity:.92;max-width:800px}
+header .meta{font-size:14px;opacity:.8;margin-top:14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+main{padding:32px 0 56px}
+section{margin-bottom:44px}
+h2{font-size:22px;margin-bottom:8px;font-weight:700}
+h2 + .lead{color:var(--muted);font-size:15px;margin-bottom:18px}
+h3{font-size:17px;margin:24px 0 10px;font-weight:650}
+h4{font-size:15.5px;margin:0 0 6px;color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-bottom:16px}
+.alert{border-left:4px solid var(--warn);background:var(--warnbg);border-radius:0 8px 8px 0}
+.alert strong{color:#8a6100}
+.good{border-left:4px solid var(--accent2);background:var(--freebg);border-radius:0 8px 8px 0}
+.good strong{color:#0b5f53}
+.free-badge{display:inline-block;background:var(--freebg);color:var(--free);font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:4px;border:1px solid #bfe3dc;white-space:nowrap}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14.5px}
+th{background:#eef1f5;text-align:left;padding:12px 14px;font-weight:650;font-size:13px;color:#3d4753;border-bottom:2px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eceff2;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.pick{background:#f4faf8}
+.mname{font-weight:650}
+.mid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--muted);word-break:break-all}
+.prompt{background:#f4f6f8;border:1px solid #e2e6eb;border-left:3px solid var(--accent);border-radius:0 7px 7px 0;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:#2b3442;margin:12px 0;white-space:pre-wrap;line-height:1.55}
+.prompt-lbl{font-size:13px;font-weight:650;color:var(--accent);margin:16px 0 4px}
+.steps{counter-reset:st;list-style:none;margin:12px 0}
+.steps li{counter-increment:st;position:relative;padding-left:38px;margin-bottom:14px}
+.steps li:before{content:counter(st);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:13.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.check li{list-style:none;position:relative;padding-left:28px;margin-bottom:9px}
+.check li:before{content:"□";position:absolute;left:0;top:-1px;font-size:17px;color:var(--accent2);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:16px 18px}
+.mini p{font-size:14px;color:var(--muted)}
+ul,ol{margin:10px 0 10px 22px}
+li{margin-bottom:7px}
+a{color:var(--accent)}
+.tblwrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.tblwrap table{border:none}
+footer{background:#1f2732;color:#9aa5b1;padding:26px 24px;font-size:13.5px}
+footer .wrap{max-width:1080px;margin:0 auto}
+footer a{color:#8fb4e8}
+@media(max-width:640px){header h1{font-size:23px}main{padding:24px 0 40px}th,td{padding:10px 11px;font-size:13.5px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<span class="badge">Раздаточный материал №10</span>
+<h1>Подключение сервисов своими руками</h1>
+<p>Универсальная процедура из семи шагов: подключить к агенту поиск, сбор данных с маркетплейсов, почту или любой другой сервис — без тренера рядом.</p>
+<div class="meta">Занятие 2 · 23 октября 2026 · данные проверены 24 октября 2026</div>
+</div></header>
+
+<main class="wrap">
+
+<section>
+<div class="card good">
+<strong>Главная мысль.</strong> Подключить новый сервис к агенту — это всегда одна и та же процедура из семи шагов: получить адрес и ключ, добавить пользовательский навык MCP, выбрать OAuth, нажать «Авторизовать и подключить». На занятии мы прошли её трижды: с поиском в сети, с агрегатором приложений и с Gmail. Теперь вы сможете пройти её сами — с любым сервисом.
+</div>
+</section>
+
+<section>
+<h2>1. Зачем это нужно</h2>
+<p class="lead">Модель — это мозг агента. Коннектор — это руки. Без рук агент отвечает на вопросы, но ничего не может сделать: не прочитать вашу почту, не положить таблицу в Google Документы, не собрать цены с маркетплейса.</p>
+<div class="tblwrap"><table>
+<thead><tr><th>Задача</th><th>Что нужно подключить</th></tr></thead>
+<tbody>
+<tr><td>Найти информацию в интернете</td><td>Поиск в сети (Tavily) — уже подключён</td></tr>
+<tr><td>Собрать цены и карточки с маркетплейса</td><td>Apify — подключим на следующем занятии</td></tr>
+<tr><td>Сложить результат в таблицу</td><td>Google Таблицы — уже подключён</td></tr>
+<tr><td>Отправить отчёт письмом</td><td>Gmail — уже подключён через Composio</td></tr>
+<tr><td>Разобрать файл из Google Диска</td><td>Google Диск — уже подключён через Composio</td></tr>
+<tr><td>Посмотреть, что происходит в Instagram</td><td>Composio → Apps → Instagram → Connect</td></tr>
+</tbody></table></div>
+<div class="card alert">
+<strong>Правило, которое экономит время.</strong> Не подключайте то, о чём агент не просил. Спросите его прямо: «Что тебе нужно, чтобы ты работал лучше?» — он перечислит недостающие инструменты. Потом проверьте, есть ли этот сервис в Composio (кнопка Connect) или это отдельный сервис с собственным MCP-адресом.
+</div>
+</section>
+
+<section>
+<h2>2. Универсальная процедура: семь шагов</h2>
+<p class="lead">Эта схема работает для любого сервиса, который умеет отдавать MCP-адрес. Следуйте ей буквально.</p>
+<ol class="steps">
+<li><strong>Зарегистрируйтесь на сайте сервиса</strong> через Google. Для большинства это кнопка «Get started free» или «Start for free».</li>
+<li><strong>Дождитесь загрузки панели.</strong> Первые секунды сайт грузится — это нормально, не перезагружайте страницу.</li>
+<li><strong>Найдите раздел с ключами и MCP-адресом.</strong> Обычно это «Settings», «Profile» или блок «MCP» на главной странице. Ключ API нужен не всегда: у сервисов с OAuth достаточно адреса.</li>
+<li><strong>Скопируйте MCP-адрес.</strong> Ссылку копируют, по ней не переходят. Если открыть её в браузере — получите ошибку «Метод не разрешён». Это не поломка.</li>
+<li><strong>В LobeHub: Настройки → Коннекторы → кнопка «+» → добавить пользовательский навык MCP.</strong></li>
+<li><strong>Заполните три поля:</strong> имя — латиницей, маленькими буквами, без пробелов (например <span class="mid">apify</span>); URL — вставьте скопированный MCP-адрес; тип авторизации — третий пункт в списке, <strong>OAuth</strong>. Поля «ID клиента» и «Client Secret» заполнять не нужно.</li>
+<li><strong>Нажмите «Авторизовать и подключить»</strong> и подтвердите доступ в окне сервиса («Разрешить» / «Allow»).</li>
+</ol>
+<div class="card good">
+<strong>Как понять, что подключилось.</strong> Откройте любого агента — в правой колонке рядом с навыками должна появиться новая группа инструментов с названием сервиса. Если появилась — подключение живое.
+</div>
+</section>
+
+<section>
+<h2>3. Три готовых рецепта</h2>
+<p class="lead">Эти три подключения вы уже проходили. Держите их под рукой как образец для любого нового.</p>
+
+<h3>3.1. Поиск в сети — Tavily</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>Поле</th><th>Что вписать</th></tr></thead>
+<tbody>
+<tr><td class="mname">Сайт</td><td class="mid">tavily.com</td></tr>
+<tr><td class="mname">Вход</td><td>Через Google</td></tr>
+<tr><td class="mname">Ключ API</td><td>Settings → API keys → скопировать</td></tr>
+<tr><td class="mname">MCP-адрес</td><td class="mid">https://mcp.tavily.com/mcp/</td></tr>
+<tr><td class="mname">Имя в LobeHub</td><td class="mid">tavily</td></tr>
+<tr><td class="mname">Тип авторизации</td><td>OAuth — третий пункт</td></tr>
+</tbody></table></div>
+
+<h3>3.2. Агрегатор приложений — Composio</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>Поле</th><th>Что вписать</th></tr></thead>
+<tbody>
+<tr><td class="mname">Сайт</td><td class="mid">composio.dev</td></tr>
+<tr><td class="mname">MCP-адрес</td><td class="mid">https://connect.composio.dev/mcp</td></tr>
+<tr><td class="mname">Имя в LobeHub</td><td class="mid">composio</td></tr>
+<tr><td class="mname">Тип авторизации</td><td>OAuth — третий пункт</td></tr>
+<tr><td class="mname">Что дальше</td><td>Внутри Composio: раздел Apps → найти сервис → навести курсор → кнопка Connect → подтвердить права</td></tr>
+</tbody></table></div>
+<div class="card alert">
+<strong>Важно про Composio.</strong> Это не один сервис, а витрина: один коннектор открывает доступ к тысяче приложений. Подключать каждый отдельно не нужно — внутри Composio у каждого приложения своя кнопка Connect. Gmail и Google Диск, которые не подключаются напрямую в LobeHub, через Composio подключаются нормально.
+</div>
+
+<h3>3.3. Сбор данных с маркетплейсов — Apify</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>Поле</th><th>Что вписать</th></tr></thead>
+<tbody>
+<tr><td class="mname">Сайт</td><td class="mid">apify.com</td></tr>
+<tr><td class="mname">Вход</td><td>Через Google</td></tr>
+<tr><td class="mname">Тариф</td><td>Бесплатный: $5 использования в месяц, карта не нужна</td></tr>
+<tr><td class="mname">Токен</td><td>Settings → Integrations → токен. Токен виден в настройках всегда, его можно пересоздать</td></tr>
+<tr><td class="mname">MCP-адрес</td><td class="mid">https://mcp.apify.com</td></tr>
+<tr><td class="mname">Имя в LobeHub</td><td class="mid">apify</td></tr>
+<tr><td class="mname">Тип авторизации</td><td>OAuth — третий пункт</td></tr>
+</tbody></table></div>
+<div class="card alert">
+<strong>Честно про блокировки.</strong> Часть маркетплейсов ограничивает автоматический сбор. Это ограничение площадки, а не ошибка вашей настройки: обычный чат-бот с ними тоже не работает. Если выбранная площадка не отдаёт данные — меняем площадку, задача остаётся той же.
+</div>
+</section>
+
+<section>
+<h2>4. Встроенные коннекторы Google</h2>
+<p class="lead">Это отдельный путь, проще MCP: выбираете сервис из списка и подтверждаете права в окне Google.</p>
+<div class="tblwrap"><table>
+<thead><tr><th>Сервис</th><th>Результат</th><th>Что делать</th></tr></thead>
+<tbody>
+<tr class="pick"><td class="mname">Google Документы</td><td>Подключается сразу</td><td>Ничего. Работает стабильно</td></tr>
+<tr class="pick"><td class="mname">Google Таблицы</td><td>Подключается сразу</td><td>Ничего. Работает стабильно</td></tr>
+<tr><td class="mname">Google Диск</td><td>Ошибка повторной авторизации</td><td>Подключить через Composio</td></tr>
+<tr><td class="mname">Gmail</td><td>Ошибка повторной авторизации</td><td>Подключить через Composio</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>5. Что делать, если не получилось</h2>
+<div class="tblwrap"><table>
+<thead><tr><th>Симптом</th><th>Причина</th><th>Что делать</th></tr></thead>
+<tbody>
+<tr><td>«Метод не разрешён» при открытии ссылки</td><td>Ссылку нужно копировать, а не открывать</td><td>Скопировать адрес и вставить в поле URL коннектора</td></tr>
+<tr><td>Поле «ID клиента» спрашивает значение</td><td>Для OAuth это поле не нужно</td><td>Оставить пустым</td></tr>
+<tr><td>Окно авторизации не открылось</td><td>Блокировщик всплывающих окон</td><td>Разрешить всплывающие окна для этого сайта в браузере и повторить</td></tr>
+<tr><td>Подключение есть, но у агента нет инструментов</td><td>Инструменты появились не у того агента</td><td>Открыть нужного агента заново — панель справа перечитается</td></tr>
+<tr><td>«Слишком много попыток»</td><td>Частые попытки подключения</td><td>Подождать несколько минут. Если повторяется — сменить VPN-сервер</td></tr>
+<tr><td>Сервис просит карту при регистрации</td><td>Некоторые сервисы требуют привязку сразу</td><td>Искать сервис с честным бесплатным тарифом без карты — их много</td></tr>
+<tr><td>Агент не вызывает инструмент при задаче</td><td>Нужного коннектора нет</td><td>Спросить агента: «каких инструментов тебе не хватает?» и подключить названный</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>6. Чек-лист: подключение готово</h2>
+<ul class="check">
+<li>Коннектор добавлен через «+» в разделе Коннекторы</li>
+<li>Имя — латиницей, без пробелов</li>
+<li>Вставлен именно MCP-адрес, а не адрес сайта</li>
+<li>Тип авторизации — OAuth (третий пункт)</li>
+<li>Доступ подтверждён в окне сервиса</li>
+<li>В правой колонке агента появились инструменты этого сервиса</li>
+<li>Агент фактически вызвал инструмент по вашему запросу</li>
+</ul>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+Раздаточный материал №10 · Подключение сервисов своими руками · Занятие 2, 23 октября 2026<br>
+Источники: lobehub.com · docs.tavily.com · docs.composio.dev · apify.com<br>
+Данные проверены 24 октября 2026. Тарифы и лимиты меняются — сверяйтесь перед оплатой.
+</div></footer>
+</body>
+</html>
