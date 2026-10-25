@@ -77,7 +77,7 @@ footer a{color:#8fb4e8}
 <div class="tblwrap"><table>
 <thead><tr><th>Задача</th><th>Что нужно подключить</th></tr></thead>
 <tbody>
-<tr><td>Найти информацию в интернете</td><td>Поиск в сети (Tavily) — уже подключён</td></tr>
+<tr><td>Найти информацию в интернете, прочитать страницу целиком</td><td>Firecrawl — уже подключён</td></tr>
 <tr><td>Собрать цены и карточки с маркетплейса</td><td>Apify — подключим на следующем занятии</td></tr>
 <tr><td>Сложить результат в таблицу</td><td>Google Таблицы — уже подключён</td></tr>
 <tr><td>Отправить отчёт письмом</td><td>Gmail — уже подключён через Composio</td></tr>
@@ -98,7 +98,7 @@ footer a{color:#8fb4e8}
 <li><strong>Найдите раздел с ключами и MCP-адресом.</strong> Обычно это «Settings», «Profile» или блок «MCP» на главной странице. Ключ API нужен не всегда: у сервисов с OAuth достаточно адреса.</li>
 <li><strong>Скопируйте MCP-адрес.</strong> Ссылку копируют, по ней не переходят. Если открыть её в браузере — получите ошибку «Метод не разрешён». Это не поломка.</li>
 <li><strong>В LobeHub: Настройки → Коннекторы → кнопка «+» → добавить пользовательский навык MCP.</strong></li>
-<li><strong>Заполните три поля:</strong> имя — латиницей, маленькими буквами, без пробелов (например <span class="mid">apify</span>); URL — вставьте скопированный MCP-адрес; тип авторизации — третий пункт в списке, <strong>OAuth</strong>. Поля «ID клиента» и «Client Secret» заполнять не нужно.</li>
+<li><strong>Заполните поля:</strong> имя — латиницей, маленькими буквами, без пробелов (например <span class="mid">apify</span>); URL — вставьте скопированный MCP-адрес; тип авторизации — <strong>OAuth</strong> (третий пункт в списке) для сервисов со входом через браузер. Для сервисов, где вы получили ключ API, доступен и второй пункт — <strong>Bearer / API Key</strong>, ключ вставляется в поле рядом. Поля «ID клиента» и «Client Secret» заполнять не нужно.</li>
 <li><strong>Нажмите «Авторизовать и подключить»</strong> и подтвердите доступ в окне сервиса («Разрешить» / «Allow»).</li>
 </ol>
 <div class="card good">
@@ -108,19 +108,27 @@ footer a{color:#8fb4e8}
 
 <section>
 <h2>3. Три готовых рецепта</h2>
-<p class="lead">Эти три подключения вы уже проходили. Держите их под рукой как образец для любого нового.</p>
+<p class="lead">Эти три подключения вы уже проходили. Держите их под рукой как образец для любого нового. У первого есть отличие от двух других: Firecrawl подключается по ключу API, а не через окно авторизации.</p>
 
-<h3>3.1. Поиск в сети — Tavily</h3>
+<h3>3.1. Поиск в сети и сбор страниц — Firecrawl</h3>
 <div class="tblwrap"><table>
 <thead><tr><th>Поле</th><th>Что вписать</th></tr></thead>
 <tbody>
-<tr><td class="mname">Сайт</td><td class="mid">tavily.com</td></tr>
+<tr><td class="mname">Сайт</td><td class="mid">firecrawl.dev</td></tr>
 <tr><td class="mname">Вход</td><td>Через Google</td></tr>
-<tr><td class="mname">Ключ API</td><td>Settings → API keys → скопировать</td></tr>
-<tr><td class="mname">MCP-адрес</td><td class="mid">https://mcp.tavily.com/mcp/</td></tr>
-<tr><td class="mname">Имя в LobeHub</td><td class="mid">tavily</td></tr>
-<tr><td class="mname">Тип авторизации</td><td>OAuth — третий пункт</td></tr>
+<tr><td class="mname">Ключ API</td><td>Settings → API Keys → скопировать. Начинается с <span class="mid">fc-</span></td></tr>
+<tr><td class="mname">MCP-адрес</td><td class="mid">https://mcp.firecrawl.dev/v2/mcp</td></tr>
+<tr><td class="mname">Имя в LobeHub</td><td class="mid">firecrawl</td></tr>
+<tr><td class="mname">Тип авторизации</td><td><strong>OAuth</strong> — третий пункт (как вы и подключали). Поля «ID клиента» и «Client Secret» оставьте пустыми</td></tr>
+<tr><td class="mname">Запасной вариант</td><td>Тот же адрес, но тип авторизации — <strong>Bearer / API Key</strong> (второй пункт), в поле ключа вставить ваш <span class="mid">fc-…</span></td></tr>
+<tr><td class="mname">Что это даёт</td><td>Поиск в сети плюс чтение целой страницы целиком: агент не только находит ссылки, но и забирает их текст</td></tr>
 </tbody></table></div>
+<div class="card good">
+<strong>Ключ и ссылка уже у вас есть.</strong> Аккаунт Firecrawl, ключ API и MCP-ссылку вы получили на занятии 23 октября и уже подключили к LobeHub — коннектор работает. Эта схема пригодится, если понадобится переподключить его или собрать такой же для другого сервиса.
+</div>
+<div class="card alert">
+<strong>Почему Firecrawl, а не Tavily.</strong> Tavily при регистрации на бесплатном тарифе запрашивает много личных данных. Firecrawl требует только аккаунт: вход через Google, без карты, и 1 000 бесплатных кредитов в месяц — этого хватает примерно на 500 поисковых запросов.
+</div>
 
 <h3>3.2. Агрегатор приложений — Composio</h3>
 <div class="tblwrap"><table>
@@ -198,7 +206,7 @@ footer a{color:#8fb4e8}
 
 <footer><div class="wrap">
 Раздаточный материал №10 · Подключение сервисов своими руками · Занятие 2, 23 октября 2026<br>
-Источники: lobehub.com · docs.tavily.com · docs.composio.dev · apify.com<br>
+Источники: lobehub.com · firecrawl.dev · docs.firecrawl.dev · docs.composio.dev · apify.com<br>
 Данные проверены 24 октября 2026. Тарифы и лимиты меняются — сверяйтесь перед оплатой.
 </div></footer>
 </body>
