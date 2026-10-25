@@ -117,17 +117,16 @@ footer a{color:#8fb4e8}
 <tr><td class="mname">Сайт</td><td class="mid">firecrawl.dev</td></tr>
 <tr><td class="mname">Вход</td><td>Через Google</td></tr>
 <tr><td class="mname">Ключ API</td><td>Settings → API Keys → скопировать. Начинается с <span class="mid">fc-</span></td></tr>
-<tr><td class="mname">MCP-адрес</td><td class="mid">https://mcp.firecrawl.dev/v2/mcp</td></tr>
+<tr><td class="mname">MCP-ссылка</td><td>Та, что уже сохранена у вас в файле с ключами. Она бывает одного из двух видов — важно не перепутать:<br><span class="mid">https://mcp.firecrawl.dev/v2/mcp-oauth</span> — вход через браузер<br><span class="mid">https://mcp.firecrawl.dev/v2/mcp</span> — вход по ключу API</td></tr>
 <tr><td class="mname">Имя в LobeHub</td><td class="mid">firecrawl</td></tr>
-<tr><td class="mname">Тип авторизации</td><td><strong>OAuth</strong> — третий пункт (как вы и подключали). Поля «ID клиента» и «Client Secret» оставьте пустыми</td></tr>
-<tr><td class="mname">Запасной вариант</td><td>Тот же адрес, но тип авторизации — <strong>Bearer / API Key</strong> (второй пункт), в поле ключа вставить ваш <span class="mid">fc-…</span></td></tr>
+<tr><td class="mname">Тип авторизации</td><td>Подставьте тот, что соответствует вашей ссылке:<br>ссылка на <span class="mid">…/mcp-oauth</span> → <strong>OAuth</strong> (третий пункт), поля «ID клиента» и «Client Secret» оставляем пустыми;<br>ссылка на <span class="mid">…/v2/mcp</span> → <strong>Bearer / API Key</strong> (второй пункт), в поле ключа вставляем ваш <span class="mid">fc-…</span></td></tr>
 <tr><td class="mname">Что это даёт</td><td>Поиск в сети плюс чтение целой страницы целиком: агент не только находит ссылки, но и забирает их текст</td></tr>
 </tbody></table></div>
 <div class="card good">
-<strong>Ключ и ссылка уже у вас есть.</strong> Аккаунт Firecrawl, ключ API и MCP-ссылку вы получили на занятии 23 октября и уже подключили к LobeHub — коннектор работает. Эта схема пригодится, если понадобится переподключить его или собрать такой же для другого сервиса.
+<strong>Это уже сделано — переподключать не нужно.</strong> Аккаунт Firecrawl, ключ API и MCP-ссылку вы получили на занятии 23 октября и подключили к LobeHub; коннектор работает, справа появились поисковые инструменты. Схема ниже — не задание, а шпаргалка: она пригодится, если коннектор когда-нибудь отвалится или понадобится собрать такой же для другого сервиса.
 </div>
 <div class="card alert">
-<strong>Почему Firecrawl, а не Tavily.</strong> Tavily при регистрации на бесплатном тарифе запрашивает много личных данных. Firecrawl требует только аккаунт: вход через Google, без карты, и 1 000 бесплатных кредитов в месяц — этого хватает примерно на 500 поисковых запросов.
+<strong>Почему Firecrawl, а не Tavily.</strong> Tavily при регистрации на бесплатном тарифе запрашивает много личных данных. Firecrawl требует только аккаунт: вход через Google, без банковской карты, 1 000 бесплатных кредитов в месяц — это примерно 500 поисковых запросов или 1 000 собранных страниц. Кредиты обновляются каждый месяц, докупать ничего не нужно, пока вы не выйдете на серьёзный объём.
 </div>
 
 <h3>3.2. Агрегатор приложений — Composio</h3>
